@@ -8,8 +8,8 @@ const mainTennantSchema = new mongoose.Schema({
  organization_name:String,
  created_datetime:Date,
  hq_address:String,
- hq_contact:Int32,
- admin_licence_count:Int32
+ hq_contact:Number,
+ admin_licence_count:Number
 },{
     timestamps: true
 }

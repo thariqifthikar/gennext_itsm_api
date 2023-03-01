@@ -16,8 +16,43 @@ router.get('/',async (req,res)=>{
     }
 
 
+    
 
 })
+
+//get with params (uid) 
+router.get ('/id/:sub_tennant_id', async(req,res)=> {
+    try {
+        let getSubtennantByid = await subTennantVar.findOne( {sub_tennant_id:req.params.sub_tennant_id})
+    
+        //let getuser = await userVar.findOne( {uid:req.params.uid}).select('user_name') to pass user only name
+        if(!getSubtennantByid)
+            return res.status(404).send('A Sub tennant for the given id is not available')
+            return res.status(200).send(getSubtennantByid)
+        
+           
+        
+    } catch (ex) {
+        return res.status(500).send("Error : "+ex.message);
+        
+    }
+})
+
+
+router.delete('/id/:sub_tennant_id', async (req, res) => {
+    try {
+        //console.log("===============");
+       // console.log("req :",req.body);
+        let deleteByid = await subTennantVar.findOneAndDelete({ sub_tennant_id: req.params.sub_tennant_id });
+        if(!deleteByid)
+            return res.status(404).send('A sub tennant for the given id is not available')
+        return res.status(200).send(" This sub tennant was Deleted Successfully"+ deleteByid)
+    }
+    catch(ex) {
+        return res.status(500).send('Error: ' + ex.message)
+    }
+})
+
 
 router.post('/',async(req,res)=>{
     const{
@@ -72,4 +107,7 @@ router.post('/',async(req,res)=>{
     }
 
 })
+
+
+
 module.exports = router

@@ -19,13 +19,34 @@ router.get('/', async (req, res) => {
 
 })
 
-//get with params 
-router.get ('/:id', async(req,res)=> {
+//get with params (uid) 
+router.get ('/id/:uid', async(req,res)=> {
     try {
-        let getuser = await userVar.findById( req.params.id)
+        let getuser = await userVar.findOne( {uid:req.params.uid})
+    
+        //let getuser = await userVar.findOne( {uid:req.params.uid}).select('user_name') to pass user only name
         if(!getuser)
             return res.status(404).send('A user for the given id is not available')
             return res.status(200).send(getuser)
+        
+           
+        
+    } catch (ex) {
+        return res.status(500).send("Error : "+ex.message);
+        
+    }
+})
+//get use by user name
+router.get ('/name/:user_name', async(req,res)=> {
+    try {
+        let getuserbyName = await userVar.findOne( {user_name:req.params.user_name})
+    
+        //let getuser = await userVar.findOne( {uid:req.params.uid}).select('user_name') to pass user only name
+        if(!getuserbyName)
+            return res.status(404).send('A user for the given Name is not available')
+            return res.status(200).send(getuserbyName)
+        
+        
     } catch (ex) {
         return res.status(500).send("Error : "+ex.message);
         
@@ -35,7 +56,7 @@ router.get ('/:id', async(req,res)=> {
 
 router.post('/', async (req, res) => {
     const {
-        id,
+        uid,
         user_name,
         account_id,
         password,
@@ -114,7 +135,7 @@ router.post('/', async (req, res) => {
     
 
     try {
-        let user = await userVar.findOne({id})
+        let user = await userVar.findOne({uid})
 
         if(user) {
             // update user if already exist and any values are changed
@@ -133,7 +154,7 @@ router.post('/', async (req, res) => {
 
         // add a new user if already not exist
         user = new userVar({
-          id,
+            uid,
             user_name,
         account_id,
         password,
@@ -199,12 +220,27 @@ router.post('/', async (req, res) => {
         
     }   
     catch(ex) {
-        return res.status(500).send('Error: ' + ex.message)
+        return res.status(500).send('Error find ID: ' + ex.message)
     }
 
         
 
      
 })
+
+router.delete('/id/:uid', async (req, res) => {
+    try {
+        //console.log("===============");
+       // console.log("req :",req.body);
+        let deleteByid = await userVar.findOneAndDelete({ uid: req.params.uid });
+        if(!deleteByid)
+            return res.status(404).send('A user for the given id is not available')
+        return res.status(200).send(" This user was Deleted Successfully"+ deleteByid)
+    }
+    catch(ex) {
+        return res.status(500).send('Error: ' + ex.message)
+    }
+})
+
 
 module.exports = router

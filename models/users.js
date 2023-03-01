@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     // id:{type:String,  //ID will be added 
     //     unique:true},
      
-    id :{type:String,
+    uid :{type:String,
     unique:true},
     user_name:String,
     account_id:String,

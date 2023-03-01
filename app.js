@@ -7,6 +7,7 @@ const user = require('./routes/user');
 const r_subTennant = require('./routes/r_subTennant');
 const r_company = require('./routes/r_company');
 const userTest = require('./routes/userTest');
+const serviceRecord = require('./routes/serviceRecord');
 
 
 const app = express()
@@ -16,6 +17,7 @@ app.use('/api/user',user)
 app.use('/api/r_subTennant',r_subTennant)
 app.use('/api/r_company',r_company)
 app.use('/api/userTest',userTest)
+app.use('/api/serviceRecord',serviceRecord)
 app.listen(5000, () => {
     console.log('Connected. Listening on port 5000')
 })

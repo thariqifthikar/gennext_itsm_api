@@ -3,6 +3,9 @@ const mongoose= require('mongoose')
 const incidentRequestSchema = new mongoose.Schema({
 
 
+    IR_id :String,
+    title: String,
+    Description: String
 },
     {
         timestamps:true

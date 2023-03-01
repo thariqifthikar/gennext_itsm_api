@@ -35,7 +35,7 @@ router.get ('/:id', async(req,res)=> {
 
 router.post('/', async (req, res) => {
     const {
-        id,
+        
         name,
         email,
         password
@@ -45,31 +45,37 @@ router.post('/', async (req, res) => {
 
     
     try {
-        let userTestpost = await userTestVar.findOne({id})
+       // let userTestpost = await userTestVar.findOne({name})
 
-        if(userTestpost) {
-            // update user if already exist and any values are changed
-            if(user.name !== name || user.email !== email || user.password !== password) {
-                user.set({
-                    name,
-                    email,
-                    password
-                })
-                userTestpost = await userTestpost.save()
-            }
+        // if(userTestpost) {
+        //     // update user if already exist and any values are changed
+        //     if(userTestpost.name !== name ) {
+        //         user.set({
+        //             name,
+        //             email,
+        //             password
+        //         })
+        //         userTestpost = await userTestpost.save()
+        //     }
                 
-            return res.status(200).send("user Updated"+usersTestM)
+        //     return res.status(200).send("user Updated"+usersTestM)
             
-        }
+        // }
 
-        // add a new user if already not exist
-        userTestpost = new userTestVar({
-            name,
-            email,
-            password
-        })
-        userTestpost = await userTestpost.save()
-        return res.status(200).send("new user Creatred"+usersTestM)
+        
+for(let i=0; i<1000;i++){
+    const id= i
+     // add a new user if already not exist
+     userTestpost = new userTestVar({
+        id,
+        name,
+        email,
+        password
+    })
+    userTestpost = await userTestpost.save()
+}
+       
+        return res.status(200).send("new 100 users Creatred"+usersTestM)
         
     }   
     catch(ex) {

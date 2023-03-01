@@ -3,6 +3,7 @@ const mongoose= require('mongoose');
 
 const oTimesUsersSchema = new mongoose.Schema({
 
+    otimeUser_id :{Type:String, unique:true },
     sub_tennant_id:String,
     type:String,
     start_time:Date,
